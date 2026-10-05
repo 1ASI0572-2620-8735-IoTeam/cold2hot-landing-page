@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cold2Hot · Cajas de delivery inteligentes | IoTeam</title>
+  <meta name="description" content="Cold2Hot es la caja de delivery inteligente de IoTeam: regulación térmica activa, desbloqueo por código OTP, seguridad de dos niveles y evidencia fotográfica de entrega.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="#inicio" class="brand" aria-label="Cold2Hot inicio">
+        <img src="assets/img/favicon.svg" alt="" width="34" height="34">
+        <span>Cold<b>2</b>Hot</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Principal">
+        <a href="#problema" data-i18n="nav.problem">Problema</a>
+        <a href="#solucion" data-i18n="nav.solution">Solución</a>
+        <a href="#como-funciona" data-i18n="nav.how">Cómo funciona</a>
+        <a href="#roi" data-i18n="nav.roi">Calculadora ROI</a>
+        <a href="#planes" data-i18n="nav.plans">Planes</a>
+        <a href="#equipo" data-i18n="nav.team">Equipo</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <div class="lang" role="group" aria-label="Idioma">
+          <button type="button" class="lang__btn is-active" data-lang="es">ES</button>
+          <button type="button" class="lang__btn" data-lang="en">EN</button>
+        </div>
+        <a href="#contacto" class="btn btn--primary btn--sm hide-mobile" data-i18n="nav.cta">Solicitar demo</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="inicio">
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <span class="eyebrow" data-i18n="hero.eyebrow">IoT para delivery de última milla</span>
+          <h1 data-i18n="hero.title">Cada pedido llega <span class="grad-text">tan bueno como salió</span> de tu cocina.</h1>
+          <p class="hero__lead" data-i18n="hero.lead">Cold2Hot es la caja de delivery inteligente que mantiene la temperatura ideal, se abre solo con un código OTP y deja evidencia de cada entrega. Menos reclamos, cero manipulaciones y trazabilidad total.</p>
+          <div class="hero__ctas">
+            <a href="#contacto" class="btn btn--primary" data-i18n="hero.cta1">Solicitar una demo</a>
+            <a href="#roi" class="btn btn--ghost" data-i18n="hero.cta2">Calcula tu ahorro →</a>
+          </div>
+          <ul class="hero__checks">
+            <li data-i18n="hero.check1">Perfiles frío / caliente</li>
+            <li data-i18n="hero.check2">Desbloqueo OTP por Bluetooth</li>
+            <li data-i18n="hero.check3">Foto de entrega</li>
+          </ul>
+        </div>
+
+        <!-- Mock de monitoreo en vivo -->
+        <div class="hero__visual" aria-hidden="true">
+          <div class="device-card">
+            <div class="device-card__head">
+              <div>
+                <span class="muted small" data-i18n="mock.shipment">Envío</span>
+                <strong>#C2H-10482</strong>
+              </div>
+              <span class="pill pill--hot" id="mockProfile" data-i18n="mock.hot">Perfil caliente</span>
+            </div>
+
+            <div class="temp-readout">
+              <span class="temp-readout__value"><span id="mockTemp">68.4</span>°C</span>
+              <span class="pill pill--ok" data-i18n="mock.inrange">En rango</span>
+            </div>
+
+            <svg class="sparkline" viewBox="0 0 300 80" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#ff6b3d" stop-opacity=".35"/>
+                  <stop offset="100%" stop-color="#ff6b3d" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="22" x2="300" y2="22" class="sparkline__band"/>
+              <line x1="0" y1="62" x2="300" y2="62" class="sparkline__band"/>
+              <path id="sparkArea" fill="url(#sparkFill)" d=""/>
+              <path id="sparkLine" class="sparkline__line" d=""/>
+            </svg>
+
+            <div class="device-card__grid">
+              <div class="stat">
+                <span class="muted small" data-i18n="mock.lock">Cerrojo</span>
+                <strong class="ok">🔒 <span data-i18n="mock.locked">Bloqueado</span></strong>
+              </div>
+              <div class="stat">
+                <span class="muted small" data-i18n="mock.battery">Batería</span>
+                <strong>87%</strong>
+              </div>
+              <div class="stat">
+                <span class="muted small">OTP</span>
+                <strong class="mono">•••• 42</strong>
+              </div>
+              <div class="stat">
+                <span class="muted small" data-i18n="mock.link">Enlace</span>
+                <strong>BLE + Wi-Fi</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="float-alert">
+            <span class="dot dot--warn"></span>
+            <div>
+              <strong data-i18n="mock.alertTitle">Tapa mal cerrada</strong>
+              <span class="muted small" data-i18n="mock.alertBody">Aviso preventivo · pedido dentro</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MÉTRICAS ============ -->
+    <section class="metrics">
+      <div class="container metrics__grid">
+        <div class="metric">
+          <strong><span class="counter" data-target="35">0</span>%</strong>
+          <span data-i18n="metrics.m1">menos reclamos por temperatura</span>
+        </div>
+        <div class="metric">
+          <strong><span class="counter" data-target="90">0</span>%</strong>
+          <span data-i18n="metrics.m2">de entregas sin incidencias de manipulación</span>
+        </div>
+        <div class="metric">
+          <strong><span class="counter" data-target="70">0</span>%</strong>
+          <span data-i18n="metrics.m3">menos disputas logísticas</span>
+        </div>
+        <div class="metric">
+          <strong>+<span class="counter" data-target="20">0</span>%</strong>
+          <span data-i18n="metrics.m4">en retención de clientes</span>
+        </div>
+      </div>
+      <p class="container metrics__note small muted" data-i18n="metrics.note">Objetivos de impacto definidos en el Lean UX Canvas de Cold2Hot.</p>
+    </section>
+
+    <!-- ============ PROBLEMA ============ -->
+    <section class="section" id="problema">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-i18n="problem.eyebrow">El problema</span>
+          <h2 data-i18n="problem.title">La última milla es donde se pierde la calidad… y la confianza</h2>
+          <p data-i18n="problem.lead">Las mochilas y cajas pasivas no reaccionan al tráfico, la distancia ni el clima. Y cuando un cliente reclama, nadie tiene pruebas de lo que pasó en el camino.</p>
+        </div>
+
+        <div class="cards cards--3">
+          <article class="card card--problem reveal">
+            <div class="card__icon card__icon--cold">❄</div>
+            <h3 data-i18n="problem.c1t">Comida fuera de temperatura</h3>
+            <p data-i18n="problem.c1d">En trayectos de más de 15 minutos, la comida caliente llega tibia y la fría se descongela. Aislamiento estático, sin control activo.</p>
+          </article>
+          <article class="card card--problem reveal">
+            <div class="card__icon card__icon--warn">⚠</div>
+            <h3 data-i18n="problem.c2t">Pedidos manipulados</h3>
+            <p data-i18n="problem.c2d">Cremalleras, velcros y stickers se abren o se replican. No hay forma de saber si el pedido fue abierto en ruta.</p>
+          </article>
+          <article class="card card--problem reveal">
+            <div class="card__icon card__icon--hot">⚖</div>
+            <h3 data-i18n="problem.c3t">Disputas sin evidencia</h3>
+            <p data-i18n="problem.c3d">Reembolsos, reclamos falsos de no entrega y penalizaciones injustas al repartidor por falta de un registro auditable.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOLUCIÓN ============ -->
+    <section class="section section--alt" id="solucion">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-i18n="solution.eyebrow">La solución</span>
+          <h2 data-i18n="solution.title">Una caja inteligente, una app para el repartidor y un panel para tu operación</h2>
+          <p data-i18n="solution.lead">Cold2Hot integra hardware IoT, una aplicación móvil y una plataforma web para asegurar la cadena de custodia térmica y física de cada pedido.</p>
+        </div>
+
+        <div class="cards cards--3">
+          <article class="card feature reveal">
+            <div class="feature__icon">🌡️</div>
+            <h3 data-i18n="feat.f1t">Regulación térmica activa</h3>
+            <p data-i18n="feat.f1d">Asigna el perfil frío o caliente desde el panel al despachar. El sensor DS18B20 (±0.5 °C) reporta la temperatura cada minuto.</p>
+          </article>
+          <article class="card feature reveal">
+            <div class="feature__icon">🔐</div>
+            <h3 data-i18n="feat.f2t">Desbloqueo por código OTP</h3>
+            <p data-i18n="feat.f2d">Un cerrojo solenoide mantiene la caja cerrada hasta que el repartidor ingresa en su app el código único generado por el restaurante.</p>
+          </article>
+          <article class="card feature reveal">
+            <div class="feature__icon">🛡️</div>
+            <h3 data-i18n="feat.f3t">Seguridad de dos niveles</h3>
+            <p data-i18n="feat.f3d">Un sensor magnético y uno infrarrojo distinguen una tapa mal cerrada (aviso preventivo) de una extracción real del pedido (alerta crítica).</p>
+          </article>
+          <article class="card feature reveal">
+            <div class="feature__icon">📸</div>
+            <h3 data-i18n="feat.f4t">Evidencia fotográfica</h3>
+            <p data-i18n="feat.f4d">El repartidor cierra cada entrega con una foto que queda asociada al envío. Protege al restaurante y al repartidor.</p>
+          </article>
+          <article class="card feature reveal">
+            <div class="feature__icon">📊</div>
+            <h3 data-i18n="feat.f5t">Monitoreo en tiempo real</h3>
+            <p data-i18n="feat.f5d">Dashboard con temperatura, batería y estado del cerrojo de cada caja activa, más alertas push y web al instante.</p>
+          </article>
+          <article class="card feature reveal">
+            <div class="feature__icon">🧾</div>
+            <h3 data-i18n="feat.f6t">Auditoría inmutable</h3>
+            <p data-i18n="feat.f6d">Un único reporte con la curva térmica del viaje, la hora exacta de apertura y la foto de entrega para resolver cualquier reclamo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CÓMO FUNCIONA ============ -->
+    <section class="section" id="como-funciona">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-i18n="how.eyebrow">Cómo funciona</span>
+          <h2 data-i18n="how.title">Del despacho a la puerta en cuatro pasos</h2>
+        </div>
+
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step__num">1</span>
+            <h3 data-i18n="how.s1t">Crea el envío</h3>
+            <p data-i18n="how.s1d">Desde el panel web registras el pedido, eliges el perfil térmico y se genera el código OTP.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__num">2</span>
+            <h3 data-i18n="how.s2t">La caja cuida el pedido</h3>
+            <p data-i18n="how.s2d">La SmartBox regula la temperatura, se bloquea y envía telemetría continua durante la ruta.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__num">3</span>
+            <h3 data-i18n="how.s3t">Desbloqueo en destino</h3>
+            <p data-i18n="how.s3d">El repartidor se conecta por Bluetooth desde la app e ingresa el OTP para liberar el cerrojo.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__num">4</span>
+            <h3 data-i18n="how.s4t">Entrega con evidencia</h3>
+            <p data-i18n="how.s4d">Foto de entrega, cierre del ciclo y reporte de auditoría disponible al instante en el panel.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ SEGMENTOS ============ -->
+    <section class="section section--alt" id="para-quien">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-i18n="seg.eyebrow">Para quién</span>
+          <h2 data-i18n="seg.title">Diseñado para quienes mueven el delivery</h2>
+        </div>
+
+        <div class="cards cards--2">
+          <article class="card segment reveal">
+            <span class="pill pill--cold" data-i18n="seg.s1tag">Panel web</span>
+            <h3 data-i18n="seg.s1t">Administradores de operaciones de delivery</h3>
+            <p data-i18n="seg.s1d">Restaurantes y cadenas con alto volumen de despachos que necesitan reducir reembolsos y proteger su marca.</p>
+            <ul class="checklist">
+              <li data-i18n="seg.s1l1">Crea envíos y asigna perfiles térmicos</li>
+              <li data-i18n="seg.s1l2">Monitorea cajas, batería y alertas en vivo</li>
+              <li data-i18n="seg.s1l3">Audita entregas con gráfica, horas y fotos</li>
+              <li data-i18n="seg.s1l4">Gestiona a tus repartidores y dispositivos</li>
+            </ul>
+          </article>
+          <article class="card segment reveal">
+            <span class="pill pill--hot" data-i18n="seg.s2tag">App móvil</span>
+            <h3 data-i18n="seg.s2t">Operadores de entrega</h3>
+            <p data-i18n="seg.s2d">Repartidores en moto o bicicleta, independientes o de planilla, que quieren trabajar sin penalizaciones injustas.</p>
+            <ul class="checklist">
+              <li data-i18n="seg.s2l1">Conexión Bluetooth guiada con la caja</li>
+              <li data-i18n="seg.s2l2">Desbloqueo por OTP en segundos</li>
+              <li data-i18n="seg.s2l3">Avisos si la tapa quedó mal cerrada</li>
+              <li data-i18n="seg.s2l4">Prueba de entrega con foto</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ROI ============ -->
+    <section class="section" id="roi">
+      <div class="container roi">
+        <div class="roi__copy">
+          <span class="eyebrow" data-i18n="roi.eyebrow">Calculadora de ROI</span>
+          <h2 data-i18n="roi.title">¿Cuánto te cuesta hoy la comida fría?</h2>
+          <p data-i18n="roi.lead">Ingresa tus pedidos y reclamos actuales. Estimamos tu ahorro anual con la reducción objetivo de 35% en reclamos y 70% en disputas por pedidos manipulados.</p>
+
+          <form class="roi__form" id="roiForm" novalidate>
+            <label>
+              <span data-i18n="roi.orders">Pedidos de delivery al mes</span>
+              <input type="number" id="roiOrders" min="0" step="10" value="1500" inputmode="numeric">
+            </label>
+            <label>
+              <span data-i18n="roi.claims">Reclamos por temperatura al mes</span>
+              <input type="number" id="roiClaims" min="0" step="1" value="60" inputmode="numeric">
+            </label>
+            <label>
+              <span data-i18n="roi.disputes">Disputas por manipulación / no entrega al mes</span>
+              <input type="number" id="roiDisputes" min="0" step="1" value="15" inputmode="numeric">
+            </label>
+            <label>
+              <span data-i18n="roi.ticket">Ticket promedio (S/)</span>
+              <input type="number" id="roiTicket" min="0" step="1" value="45" inputmode="decimal">
+            </label>
+            <label>
+              <span data-i18n="roi.boxes">Cajas Cold2Hot en tu flota</span>
+              <input type="number" id="roiBoxes" min="1" step="1" value="5" inputmode="numeric">
+            </label>
+          </form>
+        </div>
+
+        <aside class="roi__result" aria-live="polite">
+          <span class="muted small" data-i18n="roi.saving">Ahorro neto estimado al año</span>
+          <strong class="roi__big" id="roiNet">S/ 0</strong>
+
+          <dl class="roi__breakdown">
+            <div><dt data-i18n="roi.loss">Pérdida actual por reclamos y disputas</dt><dd id="roiLoss">S/ 0</dd></div>
+            <div><dt data-i18n="roi.recovered">Pérdidas que evitas</dt><dd id="roiRecovered" class="ok">S/ 0</dd></div>
+            <div><dt data-i18n="roi.cost">Suscripción Cold2Hot</dt><dd id="roiCost">S/ 0</dd></div>
+            <div><dt data-i18n="roi.rate">Tasa de reclamo actual</dt><dd id="roiRate">0%</dd></div>
+          </dl>
+
+          <div class="roi__bar"><span id="roiBar"></span></div>
+          <p class="small muted" id="roiPayback"></p>
+          <a href="#planes" class="btn btn--primary btn--block" data-i18n="roi.cta">Ver planes</a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ COMPARATIVA ============ -->
+    <section class="section section--alt" id="comparativa">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-i18n="cmp.eyebrow">Comparativa</span>
+          <h2 data-i18n="cmp.title">Lo mejor de la telemetría industrial, al precio de un restaurante</h2>
+        </div>
+
+        <div class="table-wrap reveal">
+          <table class="cmp">
+            <thead>
+              <tr>
+                <th></th>
+                <th class="cmp__us">Cold2Hot</th>
+                <th data-i18n="cmp.passive">Mochila térmica pasiva</th>
+                <th data-i18n="cmp.industrial">Telemetría industrial</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td data-i18n="cmp.r1">Control térmico activo</td><td class="cmp__us yes">✓</td><td class="no">—</td><td class="no">—</td></tr>
+              <tr><td data-i18n="cmp.r2">Monitoreo en tiempo real</td><td class="cmp__us yes">✓</td><td class="no">—</td><td class="yes">✓</td></tr>
+              <tr><td data-i18n="cmp.r3">Cerrojo físico con OTP</td><td class="cmp__us yes">✓</td><td class="no">—</td><td class="no">—</td></tr>
+              <tr><td data-i18n="cmp.r4">Detección de manipulación</td><td class="cmp__us yes">✓</td><td class="no">—</td><td class="no">—</td></tr>
+              <tr><td data-i18n="cmp.r5">Foto de entrega (Proof of Delivery)</td><td class="cmp__us yes">✓</td><td class="no">—</td><td class="no">—</td></tr>
+              <tr><td data-i18n="cmp.r6">App para repartidores</td><td class="cmp__us yes">✓</td><td class="no">—</td><td class="no">—</td></tr>
+              <tr><td data-i18n="cmp.r7">Pensado para delivery de comida</td><td class="cmp__us yes">✓</td><td class="yes">✓</td><td class="no">—</td></tr>
+              <tr><td data-i18n="cmp.r8">Costo accesible para pymes</td><td class="cmp__us yes">✓</td><td class="yes">✓</td><td class="no">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HARDWARE ============ -->
+    <section class="section" id="hardware">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-i18n="hw.eyebrow">Dentro de la SmartBox</span>
+          <h2 data-i18n="hw.title">Hardware abierto, confiable y listo para la calle</h2>
+        </div>
+
+        <div class="hw-grid">
+          <div class="hw reveal">
+            <span class="hw__tag">ESP32</span>
+            <h3 data-i18n="hw.h1t">Microcontrolador</h3>
+            <p data-i18n="hw.h1d">ESP32 NodeMCU con Wi-Fi y Bluetooth Low Energy para telemetría y control del cerrojo.</p>
+          </div>
+          <div class="hw reveal">
+            <span class="hw__tag">DS18B20</span>
+            <h3 data-i18n="hw.h2t">Sensor de temperatura</h3>
+            <p data-i18n="hw.h2d">Rango de −55 °C a +125 °C con precisión de ±0.5 °C en el compartimento interno.</p>
+          </div>
+          <div class="hw reveal">
+            <span class="hw__tag">Reed + TCRT5000</span>
+            <h3 data-i18n="hw.h3t">Seguridad de dos niveles</h3>
+            <p data-i18n="hw.h3d">Sensor magnético de tapa e infrarrojo de presencia del paquete para evitar falsas alarmas.</p>
+          </div>
+          <div class="hw reveal">
+            <span class="hw__tag">12V DC</span>
+            <h3 data-i18n="hw.h4t">Cerrojo solenoide</h3>
+            <p data-i18n="hw.h4d">Bloqueo mecánico que solo se libera con un código OTP válido.</p>
+          </div>
+          <div class="hw reveal">
+            <span class="hw__tag">Edge</span>
+            <h3 data-i18n="hw.h5t">Resiliencia sin señal</h3>
+            <p data-i18n="hw.h5d">Un nodo edge con base de datos local guarda los registros cuando se pierde la cobertura y los sincroniza después.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PLANES ============ -->
+    <section class="section section--alt" id="planes">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-i18n="plans.eyebrow">Planes</span>
+          <h2 data-i18n="plans.title">Paga por caja activa, sin licencias millonarias</h2>
+          <p data-i18n="plans.lead">Suscripción mensual del software de monitoreo y auditoría, adaptada al tamaño de tu flota.</p>
+        </div>
+
+        <div class="plans">
+          <article class="plan reveal">
+            <h3>Starter</h3>
+            <p class="plan__desc" data-i18n="plans.p1d">Para restaurantes que empiezan a delivery propio.</p>
+            <div class="plan__price"><span>S/ 49</span><small data-i18n="plans.perbox">/ caja al mes</small></div>
+            <ul class="checklist">
+              <li data-i18n="plans.p1l1">Hasta 5 cajas</li>
+              <li data-i18n="plans.p1l2">Monitoreo térmico en tiempo real</li>
+              <li data-i18n="plans.p1l3">Desbloqueo OTP y foto de entrega</li>
+              <li data-i18n="plans.p1l4">Historial de 30 días</li>
+            </ul>
+            <a href="#contacto" class="btn btn--ghost btn--block" data-plan="Starter" data-i18n="plans.contact">Contactar ventas</a>
+          </article>
+
+          <article class="plan plan--featured reveal">
+            <span class="plan__badge" data-i18n="plans.popular">Más elegido</span>
+            <h3>Pro</h3>
+            <p class="plan__desc" data-i18n="plans.p2d">Para cadenas con flota propia o tercerizada.</p>
+            <div class="plan__price"><span>S/ 39</span><small data-i18n="plans.perbox">/ caja al mes</small></div>
+            <ul class="checklist">
+              <li data-i18n="plans.p2l1">De 6 a 25 cajas</li>
+              <li data-i18n="plans.p2l2">Todo lo de Starter</li>
+              <li data-i18n="plans.p2l3">Alertas críticas de manipulación</li>
+              <li data-i18n="plans.p2l4">Analítica de repartidores</li>
+              <li data-i18n="plans.p2l5">Historial de 12 meses</li>
+            </ul>
+            <a href="#contacto" class="btn btn--primary btn--block" data-plan="Pro" data-i18n="plans.contact">Contactar ventas</a>
+          </article>
+
+          <article class="plan reveal">
+            <h3>Enterprise</h3>
+            <p class="plan__desc" data-i18n="plans.p3d">Para operaciones multi-local y plataformas de delivery.</p>
+            <div class="plan__price"><span data-i18n="plans.custom">A medida</span></div>
+            <ul class="checklist">
+              <li data-i18n="plans.p3l1">Más de 25 cajas</li>
+              <li data-i18n="plans.p3l2">Todo lo de Pro</li>
+              <li data-i18n="plans.p3l3">Integración por API</li>
+              <li data-i18n="plans.p3l4">Soporte dedicado y SLA</li>
+            </ul>
+            <a href="#contacto" class="btn btn--ghost btn--block" data-plan="Enterprise" data-i18n="plans.contact">Contactar ventas</a>
+          </article>
+        </div>
+        <p class="small muted center" data-i18n="plans.note">Precios referenciales en soles, no incluyen IGV ni el hardware SmartBox.</p>
+      </div>
+    </section>
+
+    <!-- ============ EQUIPO ============ -->
+    <section class="section" id="equipo">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow" data-i18n="team.eyebrow">Sobre nosotros</span>
+          <h2 data-i18n="team.title">Somos IoTeam</h2>
+          <p data-i18n="team.lead">Una startup de estudiantes de Ingeniería de Software de la UPC con una misión: que cada pedido llegue tan bueno como salió del restaurante.</p>
+        </div>
+
+        <div class="mvv">
+          <div class="mvv__item reveal">
+            <h3 data-i18n="team.mission">Misión</h3>
+            <p data-i18n="team.missionD">Que cada pedido de comida llegue tan bueno como salió del restaurante, cuidando su temperatura y seguridad durante todo el camino.</p>
+          </div>
+          <div class="mvv__item reveal">
+            <h3 data-i18n="team.vision">Visión</h3>
+            <p data-i18n="team.visionD">Ser un referente en Latinoamérica en tecnología IoT aplicada al delivery de comida, ayudando a que restaurantes y repartidores trabajen con más confianza.</p>
+          </div>
+        </div>
+
+        <ul class="team">
+          <li class="member reveal"><img src="assets/img/team/foto-juan.jpeg" alt="Juan Carlos Alvarado" loading="lazy"><strong>Juan Carlos Alvarado</strong><span data-i18n="team.r1">Mercado y estrategia</span></li>
+          <li class="member reveal"><img src="assets/img/team/foto-gonzalo.jpg" alt="Gonzalo Carhuancote" loading="lazy"><strong>Gonzalo Carhuancote</strong><span data-i18n="team.r2">Arquitectura y backend</span></li>
+          <li class="member reveal"><img src="assets/img/team/foto-adriana.jpg" alt="Adriana Diestra" loading="lazy"><strong>Adriana Diestra</strong><span data-i18n="team.r3">Full-stack y DDD</span></li>
+          <li class="member reveal"><img src="assets/img/team/foto-rodrigo.png" alt="Antonio Rodrigo Duran" loading="lazy"><strong>Antonio Rodrigo Duran</strong><span data-i18n="team.r4">Producto y Lean UX</span></li>
+          <li class="member reveal"><img src="assets/img/team/foto-marco.png" alt="Marco Nakasone" loading="lazy"><strong>Marco Nakasone</strong><span data-i18n="team.r5">Backend, web y móvil</span></li>
+          <li class="member reveal"><img src="assets/img/team/foto-carlos.jpg" alt="Carlos Shimabukuro" loading="lazy"><strong>Carlos Shimabukuro</strong><span data-i18n="team.r6">Telemetría y seguridad</span></li>
+          <li class="member reveal"><img src="assets/img/team/foto-joan.jpeg" alt="Joan Teves" loading="lazy"><strong>Joan Teves</strong><span data-i18n="team.r7">IoT y needfinding</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section class="section cta-section" id="contacto">
+      <div class="container contact">
+        <div class="contact__copy">
+          <h2 data-i18n="contact.title">Lleva tu delivery al siguiente nivel</h2>
+          <p data-i18n="contact.lead">Agenda una demo con una SmartBox real y descubre cómo Cold2Hot protege tus pedidos de principio a fin.</p>
+          <ul class="contact__apps">
+            <li><a href="#" data-i18n="contact.web">Ingresar a la Web App →</a></li>
+            <li><a href="#" data-i18n="contact.mobile">Descargar la app para repartidores →</a></li>
+          </ul>
+        </div>
+
+        <form class="contact__form" id="contactForm" novalidate>
+          <label>
+            <span data-i18n="contact.name">Nombre</span>
+            <input type="text" name="name" required autocomplete="name">
+          </label>
+          <label>
+            <span data-i18n="contact.business">Restaurante o empresa</span>
+            <input type="text" name="business" required autocomplete="organization">
+          </label>
+          <label>
+            <span data-i18n="contact.email">Correo</span>
+            <input type="email" name="email" required autocomplete="email">
+          </label>
+          <label>
+            <span data-i18n="contact.plan">Plan de interés</span>
+            <select name="plan" id="contactPlan">
+              <option value="Starter">Starter</option>
+              <option value="Pro" selected>Pro</option>
+              <option value="Enterprise">Enterprise</option>
+            </select>
+          </label>
+          <button type="submit" class="btn btn--primary btn--block" data-i18n="contact.submit">Solicitar demo</button>
+          <p class="form-msg" id="formMsg" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <a href="#inicio" class="brand brand--light">
+          <img src="assets/img/favicon.svg" alt="" width="30" height="30">
+          <span>Cold<b>2</b>Hot</span>
+        </a>
+        <p class="small" data-i18n="footer.tagline">Un producto de IoTeam · Universidad Peruana de Ciencias Aplicadas</p>
+      </div>
+      <nav class="footer__links" aria-label="Pie de página">
+        <a href="#solucion" data-i18n="nav.solution">Solución</a>
+        <a href="#roi" data-i18n="nav.roi">Calculadora ROI</a>
+        <a href="#planes" data-i18n="nav.plans">Planes</a>
+        <a href="#contacto" data-i18n="footer.contact">Contacto</a>
+      </nav>
+      <p class="small footer__copy">© <span id="year"></span> IoTeam. <span data-i18n="footer.rights">Todos los derechos reservados.</span></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
