@@ -449,7 +449,12 @@
   const isLocal = window.location.hostname === "localhost" || 
                   window.location.hostname === "127.0.0.1" || 
                   window.location.protocol === "file:";
-  const APP_URL = isLocal ? "http://localhost:4200" : "https://cold2hot-web-app.vercel.app";
+  const isGitHubPages = window.location.hostname.includes("github.io");
+  const APP_URL = isLocal 
+    ? "http://localhost:4200" 
+    : (isGitHubPages 
+        ? "https://1asi0572-2620-8735-ioteam.github.io/cold2hot-web-app/" 
+        : "https://cold2hot-web-app.vercel.app");
 
   $$(".btn-app-link").forEach((btn) => {
     btn.href = APP_URL;
