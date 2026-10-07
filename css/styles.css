@@ -96,6 +96,8 @@ p { margin: 0 0 1em; }
 .btn:hover { transform: translateY(-1px); }
 .btn--primary { background: var(--ink); color: #fff; box-shadow: 0 8px 20px -10px rgba(14, 23, 38, .6); }
 .btn--primary:hover { background: #1d2a40; }
+.btn--hot { background: var(--hot); color: #fff; box-shadow: 0 8px 20px -8px rgba(255, 107, 61, .5); }
+.btn--hot:hover { background: #e55225; color: #fff; transform: translateY(-1px); }
 .btn--ghost { border-color: var(--line); background: #fff; color: var(--ink); }
 .btn--ghost:hover { border-color: var(--ink); }
 .btn--sm { padding: .55rem 1rem; font-size: .875rem; }

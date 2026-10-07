@@ -18,10 +18,12 @@
     "nav.plans": "Pricing",
     "nav.team": "Team",
     "nav.cta": "Request a demo",
+    "nav.login": "Log in",
 
     "hero.eyebrow": "IoT for last-mile delivery",
     "hero.title": 'Every order arrives <span class="grad-text">as good as it left</span> your kitchen.',
     "hero.lead": "Cold2Hot is the smart delivery box that keeps food at the right temperature, only opens with an OTP code and records proof of every delivery. Fewer complaints, zero tampering and full traceability.",
+    "hero.cta_app": "Try live platform 🚀",
     "hero.cta1": "Request a demo",
     "hero.cta2": "Calculate your savings →",
     "hero.check1": "Cold / hot profiles",
@@ -90,6 +92,7 @@
     "seg.s1l2": "Monitor boxes, battery and alerts live",
     "seg.s1l3": "Audit deliveries with charts, timestamps and photos",
     "seg.s1l4": "Manage your couriers and devices",
+    "seg.s1btn": "Open web dashboard ›",
     "seg.s2tag": "Mobile app",
     "seg.s2t": "Delivery couriers",
     "seg.s2d": "Motorbike or bicycle couriers, freelance or on payroll, who want to work without unfair penalties.",
@@ -426,10 +429,30 @@
       return;
     }
     const name = form.elements.name.value.trim().split(" ")[0];
-    formMsg.textContent = MSG[lang].formOk(name);
+    const ctaText = lang === "en" ? "Launch Interactive Web App ➜" : "Probar Plataforma Web en Vivo ➜";
+    formMsg.innerHTML = `
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <span>${MSG[lang].formOk(name)}</span>
+        <a href="${APP_URL}" target="_blank" class="btn btn--hot btn--sm" style="align-self:flex-start; margin-top:6px; text-decoration:none;">
+          ${ctaText}
+        </a>
+      </div>
+    `;
     formMsg.classList.add("is-ok");
     form.reset();
     planSelect.value = "Pro";
+  });
+
+  /* ---------------------------------------------------------
+     Enrutamiento dinámico hacia la Aplicación Web (cold2hot-web-app)
+     --------------------------------------------------------- */
+  const isLocal = window.location.hostname === "localhost" || 
+                  window.location.hostname === "127.0.0.1" || 
+                  window.location.protocol === "file:";
+  const APP_URL = isLocal ? "http://localhost:4200" : "https://cold2hot-web-app.vercel.app";
+
+  $$(".btn-app-link").forEach((btn) => {
+    btn.href = APP_URL;
   });
 
   /* ---------------------------------------------------------
