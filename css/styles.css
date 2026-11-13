@@ -131,8 +131,15 @@ p { margin: 0 0 1em; }
 .navbar__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 
 .brand { display: inline-flex; align-items: center; gap: .55rem; font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
-.brand b { color: var(--hot); }
+.brand img { width: 34px; height: 34px; object-fit: contain; }
+.brand__word { letter-spacing: -.02em; }
+/* Colores del wordmark C2H (iguales a la aplicación web) */
+.brand .w-cold { color: #38bdf8; }
+.brand .w-two { color: var(--ink); }
+.brand .w-hot { color: #fd5701; }
 .brand--light { color: #fff; }
+.brand--light img { width: 30px; height: 30px; }
+.brand--light .w-two { color: #fff; }
 
 .nav { display: flex; gap: 1.6rem; }
 .nav a { font-size: .92rem; font-weight: 500; color: var(--ink-2); position: relative; }
